@@ -131,7 +131,7 @@ class Crawler(object):
             'VarQualClassID': 0,
             'VarReportingSegID': 1,
             'VarStateID': 0,
-            'VarTargetCount': 1000,
+            'VarTargetCount': 100000,
             'headerexists': 'Yes',
             'mode': 'results',
             'records': self.step,
