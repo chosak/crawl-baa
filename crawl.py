@@ -186,6 +186,10 @@ class Crawler(object):
             for i in range(len(splits_keys))
         })
 
+        for k, v in results.iteritems():
+            if isinstance(v, unicode):
+                results[k] = v.encode('utf-8')
+
         return results
     
 
