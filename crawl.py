@@ -1,3 +1,4 @@
+import argparse
 import csv
 import itertools
 import logging
@@ -32,8 +33,7 @@ class Crawler(object):
             return None
 
 
-    def crawl(self):
-        year = 2014
+    def crawl(self, year):
         genders = (1, 2)
         results = []
         
@@ -195,15 +195,25 @@ class Crawler(object):
 
 
 if '__main__' == __name__:
-    results = Crawler().crawl()
+    parser = argparse.ArgumentParser(
+        description='Crawl Boston Marathon results'
+    )
 
-    filename = 'crawl.csv'
+    default_filename = 'crawl.csv'
+    parser.add_argument('--filename', default=default_filename,
+                        help='output filename (default %s)' % default_filename)
+    parser.add_argument('--year', help='year')
+
+    args = parser.parse_args()
+
+    results = Crawler().crawl(args.year)
+
     logger.info('writing {} results to {}'.format(
         len(results),
-        filename
+        args.filename
     ))
 
-    with open(filename, 'wb') as f:
+    with open(args.filename, 'wb') as f:
         writer = csv.DictWriter(f, results[0].keys())
         writer.writeheader()
 
